@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "stargate-backlight",
+  "name": "Stargate Backlight",
+  "version": "0.1.0",
+  "apiVersion": 1,
+  "minAndroidSdk": 24,
+  "minAppVersion": "2026.10.45",
+  "entryClass": "dev.likemike.kiosk.stargate.StargateBacklightPlugin",
+  "description": "True backlight-off for the Black screensaver on Shelly Stargate. Keeps Android awake; restores the backlight on dismissal. Requires a writable Stargate sysfs backlight.",
+  "author": "likemike91",
+  "license": "Apache-2.0",
+  "capabilities": [
+    "host.read"
+  ],
+  "settings": [],
+  "commands": [
+    {
+      "id": "restore",
+      "title": "Restore backlight (until next screensaver session)"
+    }
+  ]
+}

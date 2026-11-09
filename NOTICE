@@ -1,0 +1,10 @@
+Stargate Backlight for Kiosk Satellite
+Copyright 2026 Michael Schaffer
+
+The SDK interfaces under sdk/src/me/jxl/kiosk/plugins were obtained from
+jxlarrea/kiosk-satellite, tag 2026.10.45, and are separately licensed Apache-2.0.
+Their original license is retained in that directory.
+
+The Python build and validation helpers under tools originate from
+jxlarrea/kiosk-satellite-plugins (Apache-2.0). tools/test.py is replaced with
+this project's tests. The project contains no Kiosk application implementation code.
