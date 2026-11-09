@@ -82,6 +82,46 @@ public final class BacklightTest {
         black(p); p.stop(); assert panel.value == 80;
         black(p); assert panel.value == 80; // late callbacks cannot reblank after stop
 
+        // Every visible saver can enter KS's common timed blank state. Keep its
+        // content visible before the timer, then blank without ending the session.
+        for (String mode : Arrays.asList("clock", "media", "website", "dashboard", "dim", "plugin:custom")) {
+            panel = new Panel(); host = new Host(); p = new StargateBacklightPlugin(panel, false);
+            p.start(host.proxy, Collections.emptyMap()); host.ready();
+            event(p, "screensaver.view", "view", mode);
+            event(p, "screensaver.state", "active", true);
+            event(p, "screen.brightness", "panel", 0.4);
+            assert panel.value == 80 : mode + " should remain visible before timed blanking";
+            event(p, "screensaver.view", "view", "blank");
+            assert panel.value == 80 : "Wait for zero brightness rather than blanking on view alone";
+            panel.value = 10; // KS applies Android's brightness minimum first.
+            event(p, "screen.brightness", "panel", 0.0);
+            assert panel.value == 0 : mode + " failed to enter timed blank";
+            panel.value = 130;
+            event(p, "screen.brightness", "panel", 0.5);
+            assert panel.value == 130 : "Voice/alarm brightness lift must remain visible";
+            panel.value = 10;
+            event(p, "screen.brightness", "panel", 0.0);
+            assert panel.value == 0 : "Reblank after temporary brightness lift";
+            event(p, "screensaver.view", "view", null);
+            assert panel.value == 80 : "Restore on timed-blank dismissal";
+            event(p, "screensaver.state", "active", false);
+            p.stop();
+        }
+        // Blanking events may be delivered in either order. Disabling while
+        // timed-blank is active must also restore the panel.
+        panel = new Panel(); host = new Host(); p = new StargateBacklightPlugin(panel, false);
+        p.start(host.proxy, Collections.emptyMap()); host.ready();
+        event(p, "screensaver.view", "view", "clock");
+        event(p, "screensaver.state", "active", true);
+        event(p, "screen.brightness", "panel", 0.0);
+        assert panel.value == 80;
+        event(p, "screensaver.view", "view", "blank");
+        assert panel.value == 0;
+        p.stop(); assert panel.value == 80;
+        assert !StargateBacklightPlugin.shouldBlank(true, "blank", true, null);
+        assert !StargateBacklightPlugin.shouldBlank(true, "blank", false, 0.0);
+        assert !StargateBacklightPlugin.shouldBlank(false, "blank", true, 0.0);
+
         // Late initial queries must not overwrite newer screen/saver/brightness events.
         panel = new Panel(); host = new Host(); p = new StargateBacklightPlugin(panel, false);
         p.start(host.proxy, Collections.emptyMap());

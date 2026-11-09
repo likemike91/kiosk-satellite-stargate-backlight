@@ -80,7 +80,7 @@ public final class StargateBacklightPlugin implements KioskPlugin {
         });
         // Catch delayed Android writes while dark; sample awake brightness for restoration.
         worker.scheduleWithFixedDelay(this::tick, 0, 200, TimeUnit.MILLISECONDS);
-        report("Ready; select Black screensaver and disable actual screen power-off", false);
+        report("Ready; use Black screensaver or timed 'Use a black screen instead'", false);
     }
 
     private synchronized void tick() {
@@ -95,7 +95,8 @@ public final class StargateBacklightPlugin implements KioskPlugin {
     static boolean shouldBlank(boolean active, String view, boolean screenOn, Double panel) {
         // A positive panel level is KS lifting brightness for voice/alarms/notifications.
         // Require an explicit zero, never an unknown value. Other saver modes stay untouched.
-        return active && "black".equals(view) && screenOn && panel != null && panel == 0.0;
+        return active && ("black".equals(view) || "blank".equals(view))
+            && screenOn && panel != null && panel == 0.0;
     }
 
     static boolean supported(Map<?, ?> device) {
