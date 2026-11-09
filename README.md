@@ -16,7 +16,13 @@ Independent plugin using the public SDK. No modified Kiosk APK, app signing chan
 
 The model `Shelly Stargate` was supplied by the device owner; verification of all runtime checks on hardware is still pending.
 
-## Install
+## Installation
+
+[![Install in Kiosk Satellite](https://kiosksatellite.com/img/badges/plugin-add.svg)](https://kiosksatellite.com/redirect/plugin/?repository=likemike91/kiosk-satellite-stargate-backlight)
+
+The button opens this repository in your Kiosk Satellite for review and installation. Community Plugins listing is pending review; manual repository installation is available now.
+
+### Setup and manual installation
 
 1. In Kiosk's **Screensaver** settings, enable the screensaver. Choose either setup:
    - **Dark immediately:** select **Black** and set **Turn screen off after** to **0 / disabled**.
@@ -29,6 +35,10 @@ The model `Shelly Stargate` was supplied by the device owner; verification of al
 6. If you enabled it during an existing screensaver session, dismiss the screensaver once and let a new one start. The plugin waits for an explicit view event before blanking.
 
 Repository installation needs a published release with assets uploaded by GitHub Actions. For a local developer build, use **Plugin Manager → Developer Tools → Install from ZIP**.
+
+### Settings and privacy
+
+There are no plugin-specific settings. Configure your screensaver and timer in Kiosk Satellite. The plugin exposes one command, **Restore backlight**, described below. It reads local device identity, Kiosk screen events and the fixed backlight interface; it does not collect or transmit data and makes no network requests. Plugin installation and update checks are handled by Kiosk Satellite itself.
 
 ## Behavior
 

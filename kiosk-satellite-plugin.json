@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "stargate-backlight",
   "name": "Stargate Backlight",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "apiVersion": 1,
   "minAndroidSdk": 24,
   "minAppVersion": "2026.10.45",
