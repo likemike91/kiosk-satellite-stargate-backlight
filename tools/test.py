@@ -8,7 +8,7 @@ from android_sdk import android_platform
 
 root = Path(__file__).resolve().parents[1]
 sdk = Path(os.environ.get('ANDROID_HOME', os.environ.get('ANDROID_SDK_ROOT', str(Path.home() / 'android-sdk'))))
-platform = str(android_platform(sdk))
+platform = str(android_platform(sdk, '35'))
 java_home = os.environ.get('JAVA_HOME')
 def tool(name):
     return str(Path(java_home) / 'bin' / name) if java_home else name

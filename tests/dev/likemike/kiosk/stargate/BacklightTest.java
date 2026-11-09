@@ -35,7 +35,7 @@ public final class BacklightTest {
             reply("isScreensaverActive", false);
             reply("isScreenOn", true);
             reply("getBrightness", 0.4);
-            reply("getDeviceInfo", map("device", "Stargate"));
+            reply("getDeviceInfo", map("model", "Shelly Stargate"));
         }
     }
     static void event(StargateBacklightPlugin p, String event, String key, Object value) {
@@ -69,7 +69,7 @@ public final class BacklightTest {
         panel = new Panel(); Host host = new Host();
         StargateBacklightPlugin p = new StargateBacklightPlugin(panel, false);
         p.start(host.proxy, Collections.emptyMap()); host.ready();
-        black(p); assert panel.value == 0;
+        black(p); assert panel.value == 0 : "Expected blank; value=" + panel.value + ", status=" + host.status;
         panel.value = 140;
         event(p, "screen.brightness", "panel", 0.5); assert panel.value == 140; // notification/voice lift
         panel.value = 10;
