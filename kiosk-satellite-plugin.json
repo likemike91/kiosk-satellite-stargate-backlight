@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "stargate-backlight",
   "name": "Stargate Backlight",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "apiVersion": 1,
   "minAndroidSdk": 24,
   "minAppVersion": "2026.10.45",
@@ -19,5 +19,6 @@
       "id": "restore",
       "title": "Restore backlight (until next screensaver session)"
     }
-  ]
+  ],
+  "icon": "icon.png"
 }

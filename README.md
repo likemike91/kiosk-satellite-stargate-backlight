@@ -1,5 +1,7 @@
 # Stargate Backlight for Kiosk Satellite
 
+<img src="assets/icon.png" width="128" height="128" alt="Stargate Backlight icon: a display with a split brightness symbol">
+
 Turns off the **physical backlight** during Kiosk Satellite's **Black** screensaver or **timed blanking after any screensaver** on the original Shelly Wall Display (Stargate), while Android remains awake. This avoids the normal Android brightness minimum, which can leave a black screen glowing.
 
 Independent plugin using the public SDK. No modified Kiosk APK, app signing changes, root commands, Shizuku, ADB connection, network service or Home Assistant automation is required at runtime.
@@ -77,6 +79,8 @@ python3 tools/build.py --android-platform 35
 Tests cover hardware identity rejection, actual zero writes, delayed Android writes, normal restore, not overwriting Android's restore, notification/voice brightness lifts, timed blanking after different screensavers, both view/brightness event orders, stop while timed-blanked, initial query/event races, stop/late events, explicit recovery, unsupported devices and I/O failures. CI builds the installable ZIP and checksums. A published `vX.Y.Z` release triggers a tested build and uploads the three files Kiosk's installer expects using `github-actions[bot]`.
 
 ## Credits and license
+
+The plugin and its original display/backlight icon are independent work, not affiliated with or endorsed by Shelly. No Shelly logo is used. The 256 × 256 PNG in `assets/icon.png` is referenced by the manifest as `icon.png` and included in release packages. Regenerate it with `python3 tools/render_icon.py`.
 
 Apache-2.0. SDK interfaces and build tooling originate from [Kiosk Satellite](https://github.com/jxlarrea/kiosk-satellite) and its [community plugin SDK](https://github.com/jxlarrea/kiosk-satellite-plugins), under their separate Apache-2.0 licenses. The brightness plugin implementation is independent and contains no Kiosk application implementation code. See [NOTICE](NOTICE).
 
